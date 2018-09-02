@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+<script type="application/javascript" src="http://echarts.baidu.com/examples/vendors/jquery/jquery.js"></script>
+<script type="text/javascript" src="echarts.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    myChart.showLoading();
+    //https://raw.githubusercontent.com/ArcherDing/echarts-geo-json/master/json/460000.json
+    function china(){
+        $.get('https://raw.githubusercontent.com/apache/incubator-echarts/master/map/json/china.json', function (usaJson) {
+            myChart.hideLoading();
+
+            echarts.registerMap('china', usaJson);
+            option = {
+                title: {
+                    text: 'HN',
+                    subtext: 'hn map',
+                    left: 'right'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        var value = (params.value + '').split('.');
+                        value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+                        return params.seriesName + '<br/>' + params.name + ': ' + value;
+                    }
+                },
+                visualMap: {
+                    left: 'right',
+                    min: 500000,
+                    max: 38000000,
+                    inRange: {
+                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    },
+                    text: ['High', 'Low'],           // 文本，默认为数值文本
+                    calculable: true
+                },
+                toolbox: {
+                    show: true,
+                    //orient: 'vertical',
+                    left: 'left',
+                    top: 'top',
+                    feature: {
+                        dataView: {readOnly: false},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                series: [
+                    {
+                        name: 'hainan',
+                        type: 'map',
+                        aspectScale: 1,
+                        roam: true,
+                        map: 'china',
+                        itemStyle: {
+                            emphasis: {label: {show: true}}
+                        },
+                        // 文本位置修正
+                        textFixed: {
+                            Alaska: [20, -20]
+                        },
+                        data: [
+                            {name: '南海诸岛', value: 4822023},
+                            {name: '儋州市', value: 4822023},
+                            {name: '海口市', value: 731449},
+                            {name: '三亚市', value: 6553255},
+                            {name: '白沙黎族自治县', value: 2949131},
+                            {name: '保亭黎族苗族自治县', value: 38041430},
+                            {name: '昌江黎族自治县', value: 5187582},
+                            {name: '澄迈县', value: 3590347},
+                            {name: '定安县', value: 917092},
+                            {name: '东方市', value: 632323},
+                            {name: '乐东黎族自治县', value: 19317568},
+                            {name: '临高县', value: 9919945},
+                            {name: '陵水黎族自治县', value: 1392313},
+                            {name: '琼海市', value: 1595728},
+                            {name: '琼中黎族苗族自治县', value: 12875255},
+                            {name: '屯昌县', value: 6537334},
+                            {name: '万宁市', value: 3074186},
+                            {name: '文昌市', value: 2885905},
+                            {name: '五指山市', value: 4380415}
+                        ]
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        });
+
+    }
+    function HN(){
+        $.get('460000.json', function (usaJson) {
+            myChart.hideLoading();
+
+            echarts.registerMap('hainan', usaJson);
+            option = {
+                title: {
+                    text: 'HN',
+                    subtext: 'hn map',
+                    left: 'right'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        var value = (params.value + '').split('.');
+                        value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+                        return params.seriesName + '<br/>' + params.name + ': ' + value;
+                    }
+                },
+                visualMap: {
+                    left: 'right',
+                    min: 500000,
+                    max: 38000000,
+                    inRange: {
+                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    },
+                    text: ['High', 'Low'],           // 文本，默认为数值文本
+                    calculable: true
+                },
+                toolbox: {
+                    show: true,
+                    //orient: 'vertical',
+                    left: 'left',
+                    top: 'top',
+                    feature: {
+                        dataView: {readOnly: false},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                series: [
+                    {
+                        name: 'hainan',
+                        type: 'map',
+                        aspectScale: 1,
+                        roam: true,
+                        map: 'hainan',
+                        itemStyle: {
+                            emphasis: {label: {show: true}}
+                        },
+                        // 文本位置修正
+                        textFixed: {
+                            Alaska: [20, -20]
+                        },
+                        data: [
+                            {name: '南海诸岛', value: 4822023},
+                            {name: '儋州市', value: 4822023},
+                            {name: '海口市', value: 731449},
+                            {name: '三亚市', value: 6553255},
+                            {name: '白沙黎族自治县', value: 2949131},
+                            {name: '保亭黎族苗族自治县', value: 38041430},
+                            {name: '昌江黎族自治县', value: 5187582},
+                            {name: '澄迈县', value: 3590347},
+                            {name: '定安县', value: 917092},
+                            {name: '东方市', value: 632323},
+                            {name: '乐东黎族自治县', value: 19317568},
+                            {name: '临高县', value: 9919945},
+                            {name: '陵水黎族自治县', value: 1392313},
+                            {name: '琼海市', value: 1595728},
+                            {name: '琼中黎族苗族自治县', value: 12875255},
+                            {name: '屯昌县', value: 6537334},
+                            {name: '万宁市', value: 3074186},
+                            {name: '文昌市', value: 2885905},
+                            {name: '五指山市', value: 4380415}
+                        ]
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        });
+
+    }
+    HN()
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</body>
+</html>
